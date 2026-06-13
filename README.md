@@ -7,6 +7,10 @@
 ![IIT Madras](https://img.shields.io/badge/IIT%20Madras-BS%20Degree-darkblue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+##  Live Demo
+👉 **[Try the Mushroom Safety Checker App](https://mushroom-classification-diya236.streamlit.app/)**
+
+> Predict whether a mushroom is edible or poisonous in real time!
 > **Predicting whether a mushroom is edible or poisonous using ensemble machine learning models.**
 > Submitted as part of the IIT Madras BS Degree — Machine Learning Practice (MLP) Coursework, Jan 2026.
 
