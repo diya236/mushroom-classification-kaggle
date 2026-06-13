@@ -6,8 +6,8 @@ import os
 
 # ── Page Config ───────────────────────────────────────────────────
 st.set_page_config(
-    page_title=" Mushroom Safety Checker",
-    page_icon="🍄",
+    page_title="🍄 Mushroom Safety Checker",
+    page_icon="images/mc.png",
     layout="centered"
 )
 
