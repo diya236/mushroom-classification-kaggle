@@ -272,7 +272,7 @@ mushroom-classification-kaggle/
 - Schlimmer, J. (1987). Mushroom records drawn from the Audubon Society Field Guide. UCI Machine Learning Repository
 - [Scikit-learn Documentation](https://scikit-learn.org/stable/)
 - [XGBoost Documentation](https://xgboost.readthedocs.io/)
-- [Kaggle — MLP Jan 2026 Competition](https://www.kaggle.com)
+- [Kaggle — MLP Jan 2026 Competition](https://www.kaggle.com/competitions/mlp-jan-2026-kaggle-assignment-2/overview))
 
 ---
 
