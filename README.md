@@ -124,18 +124,14 @@ Key findings from the EDA:
 
 | Model | Validation Accuracy |
 |---|---|
-| Logistic Regression | TBD |
-| Decision Tree | TBD |
-| K-Nearest Neighbors | TBD |
-| Support Vector Machine | TBD |
-| Random Forest | TBD |
-| Gradient Boosting | TBD |
-| XGBoost | TBD |
-| Random Forest (Tuned) | TBD |
-| Gradient Boosting (Tuned) | TBD |
-| XGBoost (Tuned) | **Best — TBD** |
+| Logistic Regression | 0.9957 (99.57%) |
+| Decision Tree | 0.9979 (99.79%) |
+| K-Nearest Neighbors | 1.0000 (100.00%) |
+| Support Vector Machine | 1.0000 (100.00%) |
+| Random Forest | 1.0000 (100.00%) |
+| Gradient Boosting | 1.0000 (100.00%) |
+| XGBoost | 1.0000 (100.00%) |
 
->  Replace "TBD" with actual results after running the notebook
 
 ---
 
