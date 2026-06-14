@@ -6,7 +6,7 @@ import os
 
 # ── Page Config ───────────────────────────────────────────────────
 st.set_page_config(
-    page_title=" Mushroom Safety Checker",
+    page_title="Mushroom Safety Checker",
     page_icon="images/mc.png",
     layout="centered"
 )
@@ -21,7 +21,7 @@ def load_artifacts():
         feature_cols   = joblib.load('models/feature_columns.pkl')
         return model, label_encoders, target_encoder, feature_cols
     except Exception as e:
-        st.error(f" Could not load model files: {e}")
+        st.error(f"Could not load model files: {e}")
         st.info("Please run the notebook first to generate the model .pkl files, then place them in the models/ folder.")
         st.stop()
 
@@ -29,7 +29,7 @@ model, label_encoders, target_encoder, feature_columns = load_artifacts()
 
 # ── Sidebar ───────────────────────────────────────────────────────
 with st.sidebar:
-    st.title(" ◆ About")
+    st.title("◆ About")
     st.markdown("""
     This app predicts whether a mushroom is **edible** or **poisonous**
     based on its physical characteristics.
@@ -42,7 +42,7 @@ with st.sidebar:
     ▶ **IIT Madras BS Degree**  
     Machine Learning Practice  
     Kaggle Competition — Jan 2026  
-    
+
     ---
     ⚠️ *For educational purposes only.
     Never eat a wild mushroom based
@@ -50,13 +50,12 @@ with st.sidebar:
     """)
 
 # ── Title ─────────────────────────────────────────────────────────
-st.title(" Mushroom Safety Checker")
+st.title("Mushroom Safety Checker")
 st.markdown("#### Is this mushroom safe to eat or deadly poisonous?")
 st.markdown("Fill in the mushroom's physical features below and click **Check Safety**.")
 st.divider()
 
 # ── Feature Options ───────────────────────────────────────────────
-# Readable labels for each feature value
 cap_shape_map    = {'b':'bell','c':'conical','f':'flat','k':'knobbed','s':'sunken','x':'convex'}
 cap_surface_map  = {'f':'fibrous','g':'grooves','s':'smooth','y':'scaly'}
 cap_color_map    = {'b':'buff','c':'cinnamon','e':'red','g':'gray','n':'brown','p':'pink','r':'green','u':'purple','w':'white','y':'yellow'}
@@ -154,28 +153,28 @@ if st.button("🔍 Check Safety", use_container_width=True, type="primary"):
 
     # Build raw input dict
     raw_input = {
-        'cap-shape':               cap_shape,
-        'cap-surface':             cap_surface,
-        'cap-color':               cap_color,
-        'bruises':                 bruises,
-        'odor':                    odor,
-        'gill-attachment':         gill_attachment,
-        'gill-spacing':            gill_spacing,
-        'gill-size':               gill_size,
-        'gill-color':              gill_color,
-        'stalk-shape':             stalk_shape,
-        'stalk-root':              stalk_root,
+        'cap-shape':                cap_shape,
+        'cap-surface':              cap_surface,
+        'cap-color':                cap_color,
+        'bruises':                  bruises,
+        'odor':                     odor,
+        'gill-attachment':          gill_attachment,
+        'gill-spacing':             gill_spacing,
+        'gill-size':                gill_size,
+        'gill-color':               gill_color,
+        'stalk-shape':              stalk_shape,
+        'stalk-root':               stalk_root,
         'stalk-surface-above-ring': stalk_surface_above,
         'stalk-surface-below-ring': stalk_surface_below,
-        'stalk-color-above-ring':  stalk_color_above,
-        'stalk-color-below-ring':  stalk_color_below,
-        'veil-type':               'p',   # always 'p' in this dataset
-        'veil-color':              veil_color,
-        'ring-number':             'o',   # most common
-        'ring-type':               ring_type,
-        'spore-print-color':       spore_print_color,
-        'population':              population,
-        'habitat':                 habitat,
+        'stalk-color-above-ring':   stalk_color_above,
+        'stalk-color-below-ring':   stalk_color_below,
+        'veil-type':                'p',   # always 'p' in this dataset
+        'veil-color':               veil_color,
+        'ring-number':              'o',   # most common
+        'ring-type':                ring_type,
+        'spore-print-color':        spore_print_color,
+        'population':               population,
+        'habitat':                  habitat,
     }
 
     # Build dataframe using only columns the model knows
@@ -188,14 +187,27 @@ if st.button("🔍 Check Safety", use_container_width=True, type="primary"):
 
     # Encode using saved label encoders
     input_encoded = input_df.copy()
+
     for col in feature_columns:
         if col in label_encoders:
-            le  = label_encoders[col]
+            le = label_encoders[col]
             val = str(input_df[col].iloc[0])
             if val in le.classes_:
                 input_encoded[col] = le.transform([val])[0]
             else:
-                input_encoded[col] = 0   # fallback for unseen value
+                input_encoded[col] = 0
+
+    # Check for non-numeric columns
+    bad_cols = []
+    for col in feature_columns:
+        try:
+            pd.to_numeric(input_encoded[col])
+        except Exception:
+            bad_cols.append(col)
+
+    if bad_cols:
+        st.error(f"These columns were not encoded correctly: {bad_cols}")
+        st.stop()
 
     # Predict
     prediction_enc = model.predict(input_encoded[feature_columns])
@@ -225,5 +237,5 @@ if st.button("🔍 Check Safety", use_container_width=True, type="primary"):
         st.dataframe(display_df, use_container_width=True)
 
     st.divider()
-    st.caption("⚠️ This prediction is for educational purposes only. Always consult a mycologist before consuming any wild mushroom.")
 
+st.caption("⚠️ This prediction is for educational purposes only. Always consult a mycologist before consuming any wild mushroom.")
