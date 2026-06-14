@@ -13,6 +13,8 @@
 > **Predicting whether a mushroom is edible or poisonous using ensemble machine learning models.**
 > Submitted as part of the IIT Madras BS Degree — Machine Learning Practice (MLP) Coursework, Jan 2026.
 
+## 🚀 Live Demo
+👉 [Click here to try the app](https://mushroom-classification-diya236.streamlit.app/)
 ---
 
 ##  Project Overview
